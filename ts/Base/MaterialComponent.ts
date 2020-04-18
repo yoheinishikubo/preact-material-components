@@ -87,7 +87,15 @@ export abstract class MaterialComponent<
     }
 
     // @ts-ignore
-    element[propName].className = `${userDefinedClasses} ${this.getClassName(
+//     element[propName].className = `${userDefinedClasses} ${this.getClassName(
+//       element
+//     )}`
+//       .split(' ')
+//       .filter(
+//         (value, index, self) => self.indexOf(value) === index && value !== ''
+//       ) // Unique + exclude empty class names
+//       .join(' ');
+     const tempClassName = `${userDefinedClasses} ${this.getClassName(
       element
     )}`
       .split(' ')
@@ -95,6 +103,8 @@ export abstract class MaterialComponent<
         (value, index, self) => self.indexOf(value) === index && value !== ''
       ) // Unique + exclude empty class names
       .join(' ');
+    element[propName].setAttribute("class", tempClassName);
+    
     // Clean this shit of proxy attributes
     this.mdcProps.forEach(prop => {
       // TODO: Fix this better
